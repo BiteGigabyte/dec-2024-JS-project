@@ -10,8 +10,6 @@
     const userId = +urlParams.get('userId');
     //
     let userDetailsBlock = document.createElement('div');
-    let postsOfUser = document.createElement('div');
-    postsOfUser.classList.add('visibility');
     //
     fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
         .then(value => value.json())
@@ -20,12 +18,14 @@
                 for (const objKey in obj) {
                     if (typeof obj[objKey] === 'object' && obj[objKey] !== null) {
                         let userObjDetailsBlock = document.createElement('div');
-                        userObjDetailsBlock.innerText = `${objKey}:`;
-                        parent.appendChild(userObjDetailsBlock);
+                        let userDetailsBlockP = document.createElement('p');
+                        userDetailsBlockP.innerText = `${objKey}:`;
+                        userObjDetailsBlock.classList.add('margin-left');
+                        parent.append(userDetailsBlockP, userObjDetailsBlock);
                         userLog(obj[objKey], userObjDetailsBlock);
                     } else {
                         let userKeyDetailsP = document.createElement('p');
-                        userKeyDetailsP.innerText = `${objKey}: ${obj[objKey]};`
+                        userKeyDetailsP.innerHTML = `${objKey}: <b>${obj[objKey]}</b>`;
                         parent.appendChild(userKeyDetailsP);
                     }
                 }
@@ -36,24 +36,45 @@
     //
     //
     let buttonPostsOfCurrentUsers = document.createElement('button');
-        buttonPostsOfCurrentUsers.innerText = 'Post of current users';
+        buttonPostsOfCurrentUsers.innerText = 'Posts of current users';
+        buttonPostsOfCurrentUsers.classList.add('button-posts-of-current-users');
+    let postsOfUser = document.createElement('div');
+        postsOfUser.classList.add('visibility');
+        postsOfUser.classList.add('posts-of-user');
         buttonPostsOfCurrentUsers.onclick = function () {
             postsOfUser.classList.toggle('visibility');
             postsOfUser.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            buttonPostsOfCurrentUsers.classList.add('confirmation');
+            // Видаляємо колір підтвердження через 3 секунди (3000 мілісекунд)
+            setTimeout(function() {
+                buttonPostsOfCurrentUsers.classList.remove('confirmation');
+            }, 1100);
         }
         //
         fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
             .then(value => value.json())
             .then(posts => {
                 for (const post of posts) {
+                    let postBlock = document.createElement('div');
+                        postBlock.classList.add('post-block');
                     let postH4 = document.createElement('h4');
                     postH4.innerText = post.title;
                     let postDetailsButton = document.createElement('a');
                     postDetailsButton.href = `../post-details/post-details.html?postID=${post.id}`;
                     postDetailsButton.innerText = 'Post details';
-                    postH4.appendChild(postDetailsButton);
-                    postsOfUser.appendChild(postH4);
-                    console.log(post);
+                    postDetailsButton.classList.add('post-details-button');
+                    // postH4.appendChild(postDetailsButton);
+                    postDetailsButton.onclick = function () {
+                        postDetailsButton.classList.add('confirmation');
+                        // Видаляємо колір підтвердження через 3 секунди (3000 мілісекунд)
+                        setTimeout(function() {
+                            postDetailsButton.classList.remove('confirmation');
+                        }, 1100);
+                    }
+                    //
+                    postBlock.append(postH4, postDetailsButton);
+                    postsOfUser.appendChild(postBlock);
                 }
             })
         //

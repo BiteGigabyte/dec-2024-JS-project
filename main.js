@@ -44,11 +44,19 @@
                 //
                 let userP = document.createElement('p');
                 userP.className = 'user-paragraph';
-                userP.innerText = `id: ${user.id}, name: ${user.name};`;
+                userP.innerHTML = `id: <b>${user.id}</b>, name: <b>${user.name}</b>;`;
                 let userDetailsButton = document.createElement('a');
                 userDetailsButton.innerText = 'User Details';
                 userDetailsButton.href = `./user-details/user-details.html?userId=${user.id}`;
                 userDetailsButton.className = 'user-details-button';
+                //
+                userDetailsButton.onclick = function () {
+                    userDetailsButton.classList.add('confirmation');
+                    // Видаляємо колір підтвердження через 3 секунди (3000 мілісекунд)
+                    setTimeout(function() {
+                        userDetailsButton.classList.remove('confirmation');
+                    }, 1100);
+                }
                 //
                 userBlock.append(userP, userDetailsButton);
                 generalBlock.appendChild(userBlock);

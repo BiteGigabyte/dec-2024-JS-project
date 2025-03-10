@@ -1,0 +1,44 @@
+body {
+    background-color: lemonchiffon;
+    font-size: 111%;
+}
+
+#general-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Це забезпечує два рівних стовпця */
+    gap: 2vw; /* Налаштовує простір між стовпцями */
+
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.user-block {
+    border: 2px solid black;
+    padding: 1vw; /* Додає відступи всередині кожного user block */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.user-details-button {
+    border-radius: 4px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+
+    margin-top: auto;
+}
+
+.user-details-button:hover {
+    background-color: #8dcf26;
+}
+
+.confirmation {
+    background-color: greenyellow;
+    color: black;
+}

@@ -1,0 +1,14 @@
+h4, h5 {
+    font-weight: normal;
+}
+
+.comment-block {
+
+}
+
+.comments-of-post-block {
+    /*display: grid;*/
+    /*grid-template-columns: repeat(4, 1fr);*/
+
+    /*overflow: auto;*/
+}

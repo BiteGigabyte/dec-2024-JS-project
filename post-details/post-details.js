@@ -8,6 +8,7 @@
     const postID = +urlParams.get('postID');
     //
     let postDetailsBlock = document.createElement('div');
+        postDetailsBlock.classList.add('post-details-block');
     fetch(`https://jsonplaceholder.typicode.com/posts/${postID}`)
         .then(value => value.json())
         .then(post => {
@@ -21,17 +22,20 @@
         })
     //
     let commentsOfPostBlock = document.createElement('div');
+        commentsOfPostBlock.classList.add('comments-of-post-block');
     //
     fetch(`https://jsonplaceholder.typicode.com/posts/${postID}/comments`)
         .then(value => value.json())
         .then(comments => {
-            let commentBlock = document.createElement('div');
             //
             for (const comment of comments) {
+                let commentBlock = document.createElement('div');
+                commentBlock.classList.add('comment-block');
+                //
                 let commentH4 = document.createElement('h4');
-                commentH4.innerText = `name: ${comment.name}`;
+                commentH4.innerHTML = `name: <b>${comment.name}</b>`;
                 let commentH5 = document.createElement('h5');
-                commentH5.innerText = `id: ${comment.id}; email: ${comment.email}`;
+                commentH5.innerHTML = `id: <b>${comment.id}</b>, email: <b>${comment.email}</b>`
                 let commentP = document.createElement('p');
                 commentP.innerText = `body: ${comment.body}`;
                 //
